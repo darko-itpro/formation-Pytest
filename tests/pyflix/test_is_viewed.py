@@ -1,14 +1,18 @@
+import pytest
 from project.pyflix.media_utils import is_viewed
 
-def test_media_is_viewed():
-    media = {'title': 'Star Wars',
-             'duration': 121,
-             'viewed': True}
-    assert is_viewed(media) is True
+test_data = [({'title': 'Star Wars',
+               'duration': 121,
+               'viewed': True}, True),
 
+             ({'title': 'Star Wars',
+               'duration': 121,
+               'viewed': False}, False),
 
-def test_media_is_not_viewed():
-    media = {'title': 'Star Wars',
-             'duration': 121,
-             'viewed': False}
-    assert is_viewed(media) is False
+             ({'title': 'Star Wars: Episode I - The Phantom Menace',
+               'duration': 136,
+               'viewed': 0}, False)]
+
+@pytest.mark.parametrize("media, expected", test_data)
+def test_is_viewed(media, expected):
+    assert is_viewed(media) is expected
