@@ -1,3 +1,8 @@
 def heat_status(temperature:float) -> str:
+    value = "Bon"
     if temperature > 22:
-        return "Chaud"
+        value = "Chaud"
+    elif temperature < 18:
+        value = "Froid"
+
+    return value
