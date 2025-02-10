@@ -1,2 +1,6 @@
 def is_viewed(media:dict):
-    return bool(media['viewed'])
+    viewed = int(media['viewed'])
+    if viewed < 0:
+        raise ValueError(f"Unexpected viewed: {viewed}")
+
+    return bool(viewed)
