@@ -52,3 +52,10 @@ class TestTrainingWithStudents:
     def test_data_are_ok(self, training, student_potter):
         assert len(training.students) == 1
         assert training.students[0] == student_potter
+
+    def test_add_new_student(self, training, student_granger):
+        training.add_student(student_granger)
+        assert len(training.students) == 2
+
+def test_our_trainings(trainings):
+    assert len(trainings) == 1
