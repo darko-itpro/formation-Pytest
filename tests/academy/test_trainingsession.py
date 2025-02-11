@@ -18,23 +18,33 @@ class TestTrainingSessionInitiation:
         with pytest.raises(ValueError):
             TrainingSession("formation python", duration, 10)
 
+@pytest.fixture
+def training():
+    return TrainingSession("formation python", 4, 10)
+
+@pytest.fixture
+def student_potter():
+    return Student("Harry", "Potter", "Poudlard")
+
+@pytest.fixture
+def training_with_one_student(training, student_potter):
+    training.add_student(student_potter)
+    return training
+
 class TestAddStudent:
-    def test_add_first_student(self):
-        session = TrainingSession("formation python", 4, 10)
-        student = Student("Harry", "Potter", "Poudlard")
 
-        session.add_student(student)
+    def test_add_first_student(self, training, student_potter):
+        training.add_student(student_potter)
 
-        assert len(session.students) == 1
-        assert session.students[0] == student
-        assert session.seats_left == 9
+        assert len(training.students) == 1
+        assert training.students[0] == student_potter
+        assert training.seats_left == 9
 
     @pytest.mark.xfail(reason="Need to fix this")
-    def test_duplicate_student_must_raise(self):
-        session = TrainingSession("formation python", 4, 10)
-        student = Student("Harry", "Potter", "Poudlard")
-        session.add_student(student)
+    def test_duplicate_student_must_raise(self, training_with_one_student, student_potter):
+
+        assert len(training_with_one_student.students) == 1
 
         with pytest.raises(ValueError):
-            session.add_student(student)
+            training_with_one_student.add_student(student_potter)
 
