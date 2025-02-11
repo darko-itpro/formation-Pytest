@@ -2,6 +2,7 @@ import pytest
 from project.academy.training import TrainingSession, Student
 
 class TestTrainingSessionInitiation:
+    @pytest.mark.constructor
     def test_trainingsession(self):
         session = TrainingSession("formation python", 4, 10)
 
@@ -11,6 +12,7 @@ class TestTrainingSessionInitiation:
 
     duration_exception = [0, -1]
 
+    @pytest.mark.constructor
     @pytest.mark.parametrize("duration", duration_exception)
     def test_must_have_one_day(self, duration):
         with pytest.raises(ValueError):
