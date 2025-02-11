@@ -21,6 +21,8 @@ class TrainingSession:
 
 
     def add_student(self, student: Student):
+        if student in self._students:
+            raise ValueError(f"Student {student.first_name} already taken")
         self._students.append(student)
 
     def update_seats(self, new_max_seats: int):
